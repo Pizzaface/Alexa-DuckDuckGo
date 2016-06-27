@@ -109,16 +109,26 @@ def searchDuck(intent, session):
         card_title, speech_output, reprompt_text, should_end_session))
 
     #Gets the First Result of a DuckDuckGo
-    queryRun = duckduckgo.get_zci(lookupString) 
-    #withOut = re.sub(r"\(http\S+", "", queryRun, flags=re.MULTILINE)
-    withOut = re.sub(r"http\S+", "", queryRun, flags=re.MULTILINE)
-    speech_output = withOut + ", I've included a link for more info in the Alexa App."
-    card_title = "DuckDuckGo - " + lookupString
-    reprompt_text = ""
-    should_end_session = True
-    card_text = queryRun.encode('utf-8')
-    return build_response({}, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session, card_text))
+    try:
+    	queryRun = duckduckgo.get_zci(lookupString) 
+    except ValueError:
+    	speech_output = "There was a problem contacting DuckDuckGo, could you try a little later?"
+        card_title = "Hello World"
+        card_text = speech_output
+        reprompt_text = ""
+        should_end_session = True
+        return build_response({}, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session, card_text))
+    else:
+        #withOut = re.sub(r"\(http\S+", "", queryRun, flags=re.MULTILINE)
+        withOut = re.sub(r"http\S+", "", queryRun, flags=re.MULTILINE)
+        speech_output = withOut + ", I've included a link for more info in the Alexa App."
+        card_title = "DuckDuckGo - " + lookupString
+        reprompt_text = ""
+        should_end_session = True
+        card_text = queryRun.encode('utf-8')
+        return build_response({}, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session, card_text))
 
 
 # --------------- Helpers that build all of the responses ----------------------
