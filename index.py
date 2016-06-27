@@ -110,8 +110,8 @@ def searchDuck(intent, session):
 
     #Gets the First Result of a DuckDuckGo
     queryRun = duckduckgo.get_zci(lookupString) 
-    withOut = re.sub(r'\([^)]*\)', '', queryRun)
-    withOut = re.sub(r"\(http\S+", "", queryRun, flags=re.MULTILINE)
+    #withOut = re.sub(r"\(http\S+", "", queryRun, flags=re.MULTILINE)
+    withOut = re.sub(r"http\S+", "", queryRun, flags=re.MULTILINE)
     speech_output = withOut + ", I've included a link for more info in the Alexa App."
     card_title = "DuckDuckGo - " + lookupString
     reprompt_text = ""
