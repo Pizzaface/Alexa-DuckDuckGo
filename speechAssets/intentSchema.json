@@ -1,0 +1,22 @@
+{
+  "intents": [
+    {
+      "intent": "searchDuckIntent",
+      "slots": [
+        {
+          "name": "query",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+    	"intent": "AMAZON.StopIntent"
+    },
+    {
+    	"intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
